@@ -1,1 +1,11 @@
+This folder contains my capstone project for my Unstructured Data course, where the objective was to familiarize ourselves with
+handling data types that do not fit into regular databases, such as documents, speech, images, and videos.
 
+For this capstone project, I developed a natural language processing model to predict whether a tweet pertained to a disaster. 
+The data, comprising "train.csv" and "test.csv," was pre-split for us and included in this folder. 
+
+I conducted initial exploratory analysis to determine the average length of disaster tweets compared to non-disaster ones. 
+I also assessed the number of capital letters used, instances of links, and punctuation marks like "!" and "?", along with the count of hashtags and mentions. 
+
+To prepare the data for modeling, I created a corpus matrix and tokenized the tweets. Since some disasters required more than one token for description,
+I employed both unigrams and bigrams to capture greater specificity. Subsequently, I encoded additional features for each tweet before feeding the data into an SVM model.
