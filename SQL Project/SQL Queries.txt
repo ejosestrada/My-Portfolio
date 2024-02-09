@@ -1,0 +1,53 @@
+
+/* Select Contributions by campus for the 2nd Quarter */
+
+Select c.Name as "CampusName", sum(dn.amount) as "Contributions for 2nd Quarter", ct.quarter2
+    From donation dn, program p, campus_target ct, campus c, program_at_campus pc
+    where ((dn.Program_Id= pc.Program_ID) and (pc.Campus_ID = c.campus_ID))
+        and(c.campus_ID = ct.campus_ID)
+    and (dn.donation_date  BETWEEN to_date('01 apr 2020','DD Mon YYYY') AND TO_DATE('30 Jun 2020','DD Mon YYYY'))
+    group by  c.name, ct.quarter2;
+
+/* Finding contributions made by foundation donors */
+
+SELECT fullname, type_id,
+Sum(amount) as "contribution"
+    FROM Donor d, donation dn
+    where (d.donor_id = dn.donor_id)
+    And d.type_id = 'F'
+    group by fullname, type_id;
+
+/* Contributions by program for the 3rd quarter */
+    
+Select type_ID, Name,  sum(amount) as "Contributions for 3rd Quarter"
+    From Donation dn, Donor d, Program p
+    where ((d.donor_ID = dn.donor_id) and (dn.program_id = p.program_id))
+    and (dn.donation_date  BETWEEN to_date('30 Jun 2020','DD Mon YYYY') AND TO_DATE('01 Oct 2020','DD Mon YYYY'))
+    group by Type_ID, Name
+    Order by Type_ID Desc;
+
+/* Low activity programs report for the month of september */
+
+Select Name, sum(amount) as "Contributions"
+    From Donation dn, Program P
+    where ((dn.program_ID = p.program_id)) 
+    and (dn.donation_date  BETWEEN to_date('01 sep 2020','DD Mon YYYY') AND TO_DATE('30 sep 2020','DD Mon YYYY'))
+    Group by Name
+    Order by sum(amount) ASC;
+
+/* Total contribution by the skywalker foundation */
+    
+Select Lastname, sum(amount) as "Contributions in Thousands $"
+    from member m, donation dn
+    where ((m.member_ID = dn.member_ID))
+    and m.lastname = 'Skywalker'
+    group by lastname;
+
+/* The average donation per corporate contribution */
+
+Select Fullname, avg(amount) as "Average Contributions"
+    From donation dn, Donor d
+    where ((dn.donor_id = d.donor_id))
+    and d.type_id ='C'
+    group by Fullname;
+    
